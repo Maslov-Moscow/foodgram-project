@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="{% static 'pages/index.css' %}">
+    {% include 'HeaderNotAuthD.html' %}
+</head>
+<main class="main container">
+    <p>Вы вышли из аккаунта</p>  
+<a href="{% url 'login'%}">Войти снова.</a>
+
+</main>
+    {% include 'Footer.html' %}
+</html>

@@ -1,5 +1,11 @@
+templates/new
+templates/backup
+contenttype.json
+everything_else.json
+staticfiles
 # Byte-compiled / optimized / DLL files
 __pycache__/
+migrations
 *.py[cod]
 *$py.class
 
