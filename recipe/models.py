@@ -14,7 +14,7 @@ class Recipe(models.Model):
     text = models.TextField(max_length=500)
     picture = models.ImageField(upload_to='images/', blank=True, null=True)
     pub_date = models.DateTimeField('date published', auto_now_add=True)
-    time = models.IntegerField(default=0)
+    time = models.IntegerField(default=0,validators=[MinValueValidator(1),MaxValueValidator(900)])
     tag_z = models.BooleanField(default=False)
     tag_o = models.BooleanField(default=False)
     tag_y = models.BooleanField(default=False)

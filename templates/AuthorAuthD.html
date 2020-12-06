@@ -44,7 +44,7 @@
             <h1 class="main__title">Рецепты {{ author.username }}</h1>
             
             {% if user.is_authenticated %}
-                <div class="author-subscribe" data-author="{{ author.id }}"></div>
+            <div class="author-subscribe" data-author="{{ author.id }}">
                         {% if follow == False %}
                         <p style="padding: 0 0 2em 0;"><button class="button button_style_light-blue button_size_auto"
                             name="subscribe" data-out>Подписаться на автора</button></p>
@@ -53,7 +53,7 @@
                         name="subscribe"><span class="icon-check button__icon"></span> Отписаться от автора</button>
                         {% endif %}
                     </ul>
-                </div>
+                
             </div>
             {% endif %}
             <ul class="tags">

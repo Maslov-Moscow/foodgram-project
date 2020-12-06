@@ -1,4 +1,4 @@
-from .serializers import IngridientSerilaizer, FavSerializer, PurchasesSerializer, SubscriptionsSerializer
+from .serializers import IngridientSerilaizer, CommonIdSerializer
 from recipe.models import Ingredient, Favorites, Recipe, ShopingList, Follow, User
 
 from rest_framework.views import APIView
@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 
 
-class Inridient_finder(APIView):
+class InridientFinder(APIView):
     def get(self, request):
         query = request.GET['query']
         ingridients = Ingredient.objects.filter(ing_name__startswith=query)
@@ -16,7 +16,7 @@ class Inridient_finder(APIView):
 
 class Favorit(APIView):
     def post(self, request):
-        serializer = FavSerializer(data=request.data)
+        serializer = CommonIdSerializer(data=request.data)
         if serializer.is_valid():
             id = serializer.data.get('id')
             recipe = Recipe.objects.get(id=id)
@@ -37,7 +37,7 @@ class PurchasesApi(APIView):
         return Response({"success": True})
 
     def post(self, request):
-        serializer = PurchasesSerializer(data=request.data)
+        serializer = CommonIdSerializer(data=request.data)
         if serializer.is_valid():
             id = serializer.data.get('id')
             recipe = Recipe.objects.get(id=id)
@@ -54,7 +54,7 @@ class PurchasesApiRemove(APIView):
 
 class SubscriptionsApi(APIView):
     def post(self, request):
-        serializer = SubscriptionsSerializer(data=request.data)
+        serializer = CommonIdSerializer(data=request.data)
         if serializer.is_valid():
             id = serializer.data.get('id')
             follow = User.objects.get(id=id)
@@ -68,7 +68,6 @@ class SubscriptionsApiRemove(APIView):
             user = request.user
             follower = User.objects.get(id=id)
             Follow.objects.filter(user=request.user, follower=follower).delete()
-            print('\n', follower)
             return Response({"success": True})
         except Exception:
             return Response({'succes': False})

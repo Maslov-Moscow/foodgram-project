@@ -4,9 +4,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-
-
-
 class Follow(models.Model):
     '''Subcribe to user recipse'''
 

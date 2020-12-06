@@ -13,13 +13,6 @@ class IngridientSerilaizer(serializers.ModelSerializer):
         return {'title': instance.ing_name, 'dimension': instance.get_unit_display()}
 
 
-class FavSerializer(serializers.Serializer):
+class CommonIdSerializer(serializers.Serializer):
     id = serializers.IntegerField()
 
-
-class PurchasesSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-
-
-class SubscriptionsSerializer(serializers.Serializer):
-    id = serializers.IntegerField()

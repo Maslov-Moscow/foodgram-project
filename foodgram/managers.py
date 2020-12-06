@@ -10,11 +10,13 @@ def tag_helper(tags, personal=None):
     """ Получение рецептов отфильтрованных по тегам
      personal == True сортировка для отдельного юзера"""
     check = lambda tags, meal: meal in tags
+    recipes = Recipe.objects.order_by('-pub_date')
+    if personal != None:
+        recipes = recipes.filter(author=personal)
+
     if 'breakfast' in tags and 'lunch' in tags and 'dinner' in tags or tags == '':
-        if personal == None:
-            return Recipe.objects.order_by('-pub_date')
-        else:
-            return Recipe.objects.filter(author=personal).order_by('-pub_date')
+        return recipes
+
     finder = []
     if check(tags, 'breakfast'):
         finder.append(Q(tag_z=True))
@@ -23,25 +25,16 @@ def tag_helper(tags, personal=None):
     if check(tags, 'dinner'):
         finder.append(Q(tag_y=True))
     if len(finder) == 1:
-        if personal == None:
-            return Recipe.objects.filter(finder[0]).order_by('-pub_date')
-        else:
-            return Recipe.objects.filter(finder[0], author=personal).order_by('-pub_date')
+        return recipes.filter(finder[0])
     else:
-        if personal == None:
-            return Recipe.objects.filter(or_(finder[0], finder[1])).order_by('-pub_date')
-        else:
-            return Recipe.objects.filter(or_(finder[0], finder[1]), author=personal).order_by('-pub_date')
+        return recipes.filter(or_(finder[0], finder[1]))
 
 
 def on_to_True(inp):
     """ маппинг респонса от явы  """
-    try:
-        if inp == 'on':
-            return True
-        else:
-            return False
-    except Exception:
+    if inp == 'on':
+        return True
+    else:
         return False
 
 
@@ -55,8 +48,7 @@ def ingridient_adder(request, recipe, new):
                 {'ingr_item': item[0], 'recept': recipe, 'value': int(request.POST.get(f'valueIngredient_{counter}'))})
             if form.is_valid():
                 form.save(commit=True)
-            else:
-                print(form.errors)
+
             counter += 1
     else:
         if request.POST.get(f'valueIngredient_1') == None:
