@@ -9,7 +9,7 @@ def favorites(request):
             fav_recipes.append(x.fav_recipe.id)
         return {'fav': fav_recipes}
     else:
-        pass
+        return {}
 
 
 def shop(request):
@@ -20,4 +20,4 @@ def shop(request):
             shop_recipes.append(x.recipe.id)
         return {'shop': shop_recipes, 'cnt': len(shop_recipes)}
     else:
-        pass
+        return {}

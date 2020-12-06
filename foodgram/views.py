@@ -33,7 +33,6 @@ def index(request):
     paginator = Paginator(recipe_list, 6)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
-
     if request.user.is_authenticated:
         return render(request, 'IndexAuthD.html',
                       {'page': page, 'paginator': paginator, 'tags': tags
