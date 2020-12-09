@@ -1,0 +1,40 @@
+version: '3.8'
+
+volumes:
+  postgres_data:
+  static_volume:
+
+services:
+  db:
+    image: postgres:12.4
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+    env_file:
+      - ./.env
+
+
+  web:
+    image: foodgram
+    restart: always
+    volumes: 
+      - static_volume:/code/static
+    expose:
+      - "8000"
+    depends_on:
+      - db
+    env_file:
+      - ./.env
+
+
+  nginx: 
+    build: ./nginx/
+    container_name: web_nginx
+    volumes:
+      - static_volume:/code/static
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    restart: "on-failure"
