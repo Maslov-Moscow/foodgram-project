@@ -16,7 +16,7 @@ services:
 
 
   web:
-    image: foodgram
+    image: trubraver/foodgram:v1.0
     restart: always
     volumes: 
       - static_volume:/code/static
