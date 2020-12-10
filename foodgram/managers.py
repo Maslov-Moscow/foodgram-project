@@ -11,7 +11,7 @@ def tag_helper(tags, personal=None):
      personal == True сортировка для отдельного юзера"""
     check = lambda tags, meal: meal in tags
     recipes = Recipe.objects.order_by('-pub_date')
-    if personal != None:
+    if personal is not None:
         recipes = recipes.filter(author=personal)
 
     if 'breakfast' in tags and 'lunch' in tags and 'dinner' in tags or tags == '':

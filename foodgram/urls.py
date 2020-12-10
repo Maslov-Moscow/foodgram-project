@@ -26,10 +26,10 @@ urlpatterns = [
     path('singup/', views.signup, name="signup"),
     path('recipe/<int:id>/', views.single_page),
     path('edit/<int:id>/', views.recipe_edit),
-    path('newrecipe/', views.newrecipe),
+    path('newrecipe/', views.newrecipe, name='newrecipe'),
     path('shop/', views.shop_list, name='shop'),
     path('getshop/', views.get_shop),  # список покупок
-    path('favorite/', views.favorites),
+    path('favorite/', views.favorites,name='favorite'),
     path('author/<int:id>', views.author),
     path('follow/', views.subscribes, name='follow'),
     path('api/', include('api.urls')),

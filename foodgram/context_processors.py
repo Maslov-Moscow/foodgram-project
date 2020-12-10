@@ -4,9 +4,8 @@ from recipe.models import Favorites, ShopingList
 def favorites(request):
     if request.user.is_authenticated:
         fav = Favorites.objects.filter(owner=request.user).select_related('fav_recipe')
-        fav_recipes = []
-        for x in fav:
-            fav_recipes.append(x.fav_recipe.id)
+        fav_recipes = fav.values_list('fav_recipe__id', flat=True)
+
         return {'fav': fav_recipes}
     else:
         return {}
